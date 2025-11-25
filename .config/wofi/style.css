@@ -1,0 +1,48 @@
+/* Catppuccin-Macchiato Pallet */
+window {
+    margin: 0px;
+    border: 1px solid #181926; /* Crust */
+    background-color: #1e2030; /* Mantle */
+}
+
+#input {
+    margin: 5px;
+    border: none;
+    color: #cad3f5;             /* Text */
+    background-color: #363a4f;  /* Surface 0 */
+}
+
+#inner-box {
+    margin: 5px;
+    border: none;
+    background-color: #1e2030; /* Mantle */
+}
+
+#outer-box {
+    margin: 5px;
+    border: none;
+    background-color: #1e2030;  /* Mantle */
+}
+
+#scroll {
+    margin: 0px;
+    border: none;
+}
+
+#text {
+    margin: 5px;
+    border: none;
+    color: #cad3f5;             /* Text */
+} 
+
+#entry.activatable #text {
+    color: #a5adcb;             /* Subtext 0 */
+}
+
+#entry:selected {
+    background-color: #6e738d;  /* Overlay 0 */
+}
+
+#entry:selected #text {
+    font-weight: bold;
+}
