@@ -5,119 +5,43 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-[[ -f ~/.welcome_screen ]] && . ~/.welcome_screen
-
-# _set_liveuser_PS1() {
-#     PS1='[\u@\h \W]\$ '
-#     if [ "$(whoami)" = "liveuser" ] ; then
-#         local iso_version="$(grep ^VERSION= /usr/lib/endeavouros-release 2>/dev/null | cut -d '=' -f 2)"
-#         if [ -n "$iso_version" ] ; then
-#             local prefix="eos-"
-#             local iso_info="$prefix$iso_version"
-#             PS1="[\u@$iso_info \W]\$ "
-#         fi
-#     fi
-# }
-# _set_liveuser_PS
-# unset -f _set_liveuser_PS1
-
-_custom_PS1() {
+my_PS1() {
 	USER_COLOR="\[$(tput setaf 171)\]"
 	HOST_COLOR="\[$(tput setaf 51)\]"
 	DIR_COLOR="\[$(tput setaf 51)\]"
-	ARROW_COLOR="\[$(tput setaf 82)\]"
+	SEP_COLOR="\[$(tput setaf 82)\]"
 	WHITE="\[$(tput setaf 15)\]"
 	RESET="\[$(tput sgr0)\]"
-	BOLD="\[$(tput bold)\]"
 	source ~/.git-prompt.sh
 	GIT_PS1_SHOWSTASHSTATE=true
 	GIT_PS1_SHOWDIRTYSTATE=true
 	GIT_PS1_SHOWCOLORHINTS=true
 	GIT='$(__git_ps1 " (%s)")'
-	PS1="${DIR_COLOR}\W${WHITE}${ARROW_COLOR} -> ${RESET}"
-	PROMPT_COMMAND='__git_ps1 "${DIR_COLOR}\W${RESET}" " ${ARROW_COLOR}-> ${RESET}"'
+	PS1="${DIR_COLOR}\W${WHITE}${SEP_COLOR} $ ${RESET}"
+	PROMPT_COMMAND='__git_ps1 "${DIR_COLOR}\W${RESET}" " ${SEP}$ ${RESET}"'
 }
-_custom_PS1
-
-ShowInstallerIsoInfo() {
-    local file=/usr/lib/endeavouros-release
-    if [ -r $file ] ; then
-        cat $file
-    else
-        echo "Sorry, installer ISO info is not available." >&2
-    fi
-}
-
-SetUpBT() { 
-	systemctl is-active --quiet bluetooth.service 
-	if [ $? -ne 0 ] ; then
-		sudo systemctl start bluetooth.service
-	fi
-	bluetoothctl power on
-}
+my_PS1
 
 # Aliases
 alias ls='ls -F --color=auto'
-alias ll='ls -lavF --ignore=..'   # show long listing of all except ".."
-alias l='ls -lavF --ignore=.?*'   # show long listing but no hidden dotfiles except "."
+alias ll='ls -laF --color=auto'
+alias grep='grep --color=auto'
 alias gitlog='git log --graph --decorate --all'
-alias gitstat='git status'
-alias bt-bose='bluetoothctl connect 2C:41:A1:C9:D7:F8'
-alias bt-jbl='bluetoothctl connect F0:A9:68:55:FB:F1'
-alias bt-off='bluetoothctl power off'
-alias bt-on=SetUpBT
-alias ff=firefox
-alias logoff='loginctl terminate-user matth'
 
 [[ "$(whoami)" = "root" ]] && return
 
-[[ -z "$FUNCNEST" ]] && export FUNCNEST=100          # limits recursive functions, see 'man bash'
+[[ -z "$FUNCNEST" ]] && export FUNCNEST=100 # limits recursive functions, see 'man bash'
 
-## Use the up and down arrow keys for finding a command in history
-## (you can write some initial letters of the command first).
+# Use the up and down arrow keys for finding a command in history
+# (you can write some initial letters of the command first).
 bind '"\e[A":history-search-backward'
 bind '"\e[B":history-search-forward'
 
-################################################################################
-## Some generally useful functions.
-## Consider uncommenting aliases below to start using these functions.
-##
-## October 2021: removed many obsolete functions. If you still need them, please look at
-## https://github.com/EndeavourOS-archive/EndeavourOS-archiso/raw/master/airootfs/etc/skel/.bashrc
+export EDITOR=/usr/bin/nvim
 
-_open_files_for_editing() {
-    # Open any given document file(s) for editing (or just viewing).
-    # Note1:
-    #    - Do not use for executable files!
-    # Note2:
-    #    - Uses 'mime' bindings, so you may need to use
-    #      e.g. a file manager to make proper file bindings.
+export PATH=$PATH:$HOME/go/bin
 
-    if [ -x /usr/bin/exo-open ] ; then
-        echo "exo-open $@" >&2
-        setsid exo-open "$@" >& /dev/null
-        return
-    fi
-    if [ -x /usr/bin/xdg-open ] ; then
-        for file in "$@" ; do
-            echo "xdg-open $file" >&2
-            setsid xdg-open "$file" >& /dev/null
-        done
-        return
-    fi
+. "$HOME/.local/bin/env"
 
-    echo "$FUNCNAME: package 'xdg-utils' or 'exo' is required." >&2
-}
-
-#------------------------------------------------------------
-
-## Aliases for the functions above.
-## Uncomment an alias if you want to use it.
-##
-
-# alias ef='_open_files_for_editing'     # 'ef' opens given file(s) for editing
-# alias pacdiff=eos-pacdiff
-################################################################################
-
-
-. "$HOME/.cargo/env"
+source "/usr/share/fzf/key-bindings.bash"
+source "/usr/share/fzf/completion.bash"
