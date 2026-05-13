@@ -271,8 +271,9 @@ hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle only
 hl.bind(mainMod .. " + I", hl.dsp.exec_cmd("hyprlock"))
-hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({action = "toggle"}))
-hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({mode = "maximized", action = "toggle"}))
+hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ action = "toggle" }))
+hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
+-- hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen_state({internal = "", client = ""}))
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
@@ -297,6 +298,20 @@ hl.bind(mainMod .. " + SHIFT + H", hl.dsp.window.move({ direction = "left" }))
 hl.bind(mainMod .. " + SHIFT + L", hl.dsp.window.move({ direction = "right" }))
 hl.bind(mainMod .. " + SHIFT + K", hl.dsp.window.move({ direction = "up" }))
 hl.bind(mainMod .. " + SHIFT + J", hl.dsp.window.move({ direction = "down" }))
+
+local resizeDelta = 100
+
+-- Resize active window with mainMod + alt + hjkl keys
+hl.bind(mainMod .. " + ALT + H", hl.dsp.window.resize({ x = -resizeDelta, y = 0, relative = true }))
+hl.bind(mainMod .. " + ALT + L", hl.dsp.window.resize({ x = resizeDelta, y = 0, relative = true }))
+hl.bind(mainMod .. " + ALT + K", hl.dsp.window.resize({ x = 0, y = -resizeDelta, relative = true }))
+hl.bind(mainMod .. " + ALT + J", hl.dsp.window.resize({ x = 0, y = resizeDelta, relative = true }))
+
+-- # Resize active window with mainMod + alt + arrow keys
+hl.bind(mainMod .. " + ALT + left", hl.dsp.window.resize({ x = -resizeDelta, y = 0, relative = true }))
+hl.bind(mainMod .. " + ALT + right", hl.dsp.window.resize({ x = resizeDelta, y = 0, relative = true }))
+hl.bind(mainMod .. " + ALT + up", hl.dsp.window.resize({ x = 0, y = -resizeDelta, relative = true }))
+hl.bind(mainMod .. " + ALT + down", hl.dsp.window.resize({ x = 0, y = resizeDelta, relative = true }))
 
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
