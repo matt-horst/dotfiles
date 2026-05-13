@@ -16,15 +16,10 @@
 
 -- See https://wiki.hypr.land/Configuring/Basics/Monitors/
 hl.monitor({
-    output   = "DP-1",
-    mode     = "2560x1440@144",
+    output   = "eDP-1",
+    mode     = "1920x1080@60",
     position = "0x0",
     scale    = "1",
-}, {
-    output = "HDMI-A-1",
-    mode = "2560x1080@60",
-    position = "2560x0",
-    scale = "1",
 })
 
 
@@ -234,7 +229,7 @@ hl.config({
         sensitivity  = 0, -- -1.0 - 1.0, 0 means no modification.
 
         touchpad     = {
-            natural_scroll = false,
+            natural_scroll = true,
         },
     },
 })
@@ -271,8 +266,8 @@ hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle only
 hl.bind(mainMod .. " + I", hl.dsp.exec_cmd("hyprlock"))
-hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({action = "toggle"}))
-hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({mode = "maximized", action = "toggle"}))
+hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ action = "toggle" }))
+hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
