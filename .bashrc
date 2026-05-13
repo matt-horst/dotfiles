@@ -39,9 +39,5 @@ bind '"\e[B":history-search-forward'
 
 export EDITOR=/usr/bin/nvim
 
-export PATH=$PATH:$HOME/go/bin
-
-. "$HOME/.local/bin/env"
-
 source "/usr/share/fzf/key-bindings.bash"
 source "/usr/share/fzf/completion.bash"

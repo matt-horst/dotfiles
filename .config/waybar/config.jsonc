@@ -15,6 +15,7 @@
     "modules-right": [
         "mpd",
         "idle_inhibitor",
+	"battery",
         "wireplumber",
         "network",
         "cpu",
