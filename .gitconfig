@@ -5,5 +5,11 @@
 	defaultBranch = main
 [core]
 	editor = nvim
+    pager = delta
+[delta]
+    navigate = true
+    dark = true
 [pull]
 	rebase = true
+[merge]
+    conflictStyle = zdiff3

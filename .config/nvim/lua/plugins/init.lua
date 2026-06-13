@@ -1,6 +1,15 @@
 return {
-    {'nvim-telescope/telescope.nvim', tag = '0.1.8', dependencies = { 'nvim-lua/plenary.nvim' }},
-    {'nvim-treesitter/nvim-treesitter', build = ':TSUpdate'},
+    { 'nvim-telescope/telescope.nvim', tag = '0.1.8', dependencies = { 'nvim-lua/plenary.nvim' } },
+    {
+        'nvim-treesitter/nvim-treesitter',
+        build = ':TSUpdate',
+        branch = 'main',
+        lazy = false,
+        config = function()
+            local ts = require('nvim-treesitter')
+            ts.install('lua', 'rust', 'cpp', 'zig', 'odin', 'c')
+        end
+    },
     'mbbill/undotree',
 
     -- LSP Support
@@ -9,9 +18,9 @@ return {
     'williamboman/mason-lspconfig.nvim',
 
     -- Autocompletion
-    'hrsh7th/nvim-cmp',        -- Required
-    'hrsh7th/cmp-nvim-lsp',    -- Required
-    'L3MON4D3/LuaSnip',        -- Required
+    'hrsh7th/nvim-cmp',     -- Required
+    'hrsh7th/cmp-nvim-lsp', -- Required
+    'L3MON4D3/LuaSnip',     -- Required
     'folke/neodev.nvim',
 
     -- LSP Diagnostics
@@ -54,8 +63,15 @@ return {
         },
     },
 
+    -- LSP Overloads
+    {
+        'Issafalcon/lsp-overloads.nvim',
+        event = 'LspAttach'
+    },
+
     -- Color Scheme
-    {'catppuccin/nvim', name = 'catppuccin', priority = 1000},
+    -- {'catppuccin/nvim', name = 'catppuccin', priority = 1000},
+    { 'mofiqul/dracula.nvim' },
 
     -- Surround Stuff With Stuff
     'tpope/vim-surround',
@@ -72,11 +88,14 @@ return {
             'TmuxNavigateProcessList',
         },
         keys = {
-            { '<c-h>', '<cmd><C-U>TmuxNavigateLeft<cr>' },
-            { '<c-j>', '<cmd><C-U>TmuxNavigateDown<cr>' },
-            { '<c-k>', '<cmd><C-U>TmuxNavigateUp<cr>' },
-            { '<c-l>', '<cmd><C-U>TmuxNavigateRight<cr>' },
+            { '<c-h>',  '<cmd><C-U>TmuxNavigateLeft<cr>' },
+            { '<c-j>',  '<cmd><C-U>TmuxNavigateDown<cr>' },
+            { '<c-k>',  '<cmd><C-U>TmuxNavigateUp<cr>' },
+            { '<c-l>',  '<cmd><C-U>TmuxNavigateRight<cr>' },
             { '<c-\\>', '<cmd><C-U>TmuxNavigatePrevious<cr>' },
         },
     },
+
+    -- AI Autocompletion
+    'github/copilot.vim',
 }
