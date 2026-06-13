@@ -41,3 +41,4 @@ export EDITOR=/usr/bin/nvim
 
 source "/usr/share/fzf/key-bindings.bash"
 source "/usr/share/fzf/completion.bash"
+source "${HOME}/vulkan/1.4.341.1/setup-env.sh"
