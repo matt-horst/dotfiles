@@ -1,0 +1,36 @@
+# Terminal and Shell
+ghostty
+zellij
+neovim
+starship
+
+# Utilities
+git
+ripgrep
+fd
+delta
+bat
+fzf
+stow
+unzip
+tldr
+jq
+
+# Hyprland Desktop Environment
+hyprland
+hyprpaper
+hyprlock
+hypridle
+waybar
+wl-clipboard
+
+# Sound
+pipewire
+pipewire-alsa
+pipewire-pulse
+wireplumber
+
+# Font
+noto-fonts
+noto-fonts-cjk
+ttf-jetbrains-mono-nerd
