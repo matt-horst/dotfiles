@@ -84,6 +84,10 @@ I hope you enjoy your Neovim journey,
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 
+vim.g.mapleader = ' '
+vim.g.maplocalleader = '\\'
+require("config.lazy")
+
 -- ============================================================
 -- SECTION 1: OPTIONS
 -- Core Neovim settings, leaders, options, basic keymaps, basic autocmds
@@ -95,8 +99,6 @@ do
   -- Set <space> as the leader key
   -- See `:help mapleader`
   --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
-  vim.g.mapleader = ' '
-  vim.g.maplocalleader = ' '
 
   -- Opens the file tree
   vim.keymap.set('n', '<leader>b', vim.cmd.Ex, { desc = '[B]rowse file tree' })
@@ -327,15 +329,16 @@ do
   --
   -- We first install it from https://github.com/NMAC427/guess-indent.nvim
   -- and then call its `setup()` function to start it with default settings.
-  require('guess-indent').setup {}
+  -- require('guess-indent').setup {}
 
   -- Bind undo tree
-  vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle, { desc = 'Toggle [U]ndotree' })
+  -- vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle, { desc = 'Toggle [U]ndotree' })
 
   -- Here is a more advanced configuration example that passes options to `gitsigns.nvim`
   --
   -- See `:help gitsigns` to understand what each configuration key does.
   -- Adds git related signs to the gutter, as well as utilities for managing changes
+  --[[
   require('gitsigns').setup {
     signs = {
       add = { text = '+' }, ---@diagnostic disable-line: missing-fields
@@ -345,15 +348,16 @@ do
       changedelete = { text = '~' }, ---@diagnostic disable-line: missing-fields
     },
   }
+  ]]
 
   -- Bind neogit
-  vim.keymap.set('n', '<leader>gg', '<cmd>Neogit<cr>', { desc = 'Toggle Neogit UI' })
+  -- vim.keymap.set('n', '<leader>gg', '<cmd>Neogit<cr>', { desc = 'Toggle Neogit UI' })
 
-  require('dracula').setup {}
+  -- require('dracula').setup {}
   vim.cmd.colorscheme 'dracula'
 
   -- Highlight todo, notes, etc in comments
-  require('todo-comments').setup { signs = false }
+  -- require('todo-comments').setup { signs = false }
 end
 
 -- ============================================================
@@ -388,6 +392,7 @@ do
   ---@type (string|vim.pack.Spec)[]
   ---
   -- See `:help telescope` and `:help telescope.setup()`
+  --[[
   require('telescope').setup {
     -- You can put your default mappings / updates / etc. in here
     --  All the info you're looking for is in `:help telescope.setup()`
@@ -482,6 +487,7 @@ do
   -- Shortcut for searching your Neovim configuration files
   vim.keymap.set('n', '<leader>sn', function() builtin.find_files { cwd = vim.fn.stdpath 'config', follow = true } end,
     { desc = '[S]earch [N]eovim files' })
+  ]]
 end
 
 -- ============================================================
@@ -625,6 +631,7 @@ end
 -- conform.nvim setup and keymap
 -- ============================================================
 do
+  --[[
   require('conform').setup({
     notify_on_error = false,
     format_on_save = function(bufnr)
@@ -644,6 +651,7 @@ do
       lsp_format = 'fallback',
     }
   })
+  ]]
 end
 
 -- ============================================================
@@ -651,6 +659,7 @@ end
 -- blink.cmp and luasnip setup
 -- ============================================================
 do
+  --[[
   require('blink.cmp').setup({
     keymap = {
       -- <c-y>: accept
@@ -714,6 +723,7 @@ do
       }
     },
   })
+  ]]
 end
 
 -- The line beneath this is called `modeline`. See `:help modeline`
