@@ -36,7 +36,7 @@
         "timezone": "America/Denver",
         "format": "{:%H:%M}",
         "tooltip-format": "{calendar}",
-        "format-alt": "{:%A %B %d}"
+        "format-alt": "{:%A %B %d}",
         "calendar": {
             "mode": "month"
         }
