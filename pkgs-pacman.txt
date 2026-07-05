@@ -9,6 +9,12 @@ tree-sitter
 tree-sitter-cli
 tree-sitter-grammars
 
+# Docs
+man
+man-db
+man-pages
+texinfo
+
 # Utilities
 git
 ripgrep
