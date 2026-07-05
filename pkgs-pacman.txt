@@ -19,7 +19,7 @@ texinfo
 git
 ripgrep
 fd
-delta
+git-delta
 bat
 eza
 fzf
