@@ -116,7 +116,7 @@
     },
     "network": {
         "format-wifi": "{signalStrength}% ",
-        "format-ethernet": "",
+        "format-ethernet": "",
         "tooltip-format": "{ifname} | {gwaddr}",
         "tooltip-format-wifi": "{essid} | {ifname} | {gwaddr}",
         "format-linked": "{ifname} (No IP) ",
