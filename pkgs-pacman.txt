@@ -4,6 +4,11 @@ zellij
 neovim
 starship
 
+# Treesitter needed for neovim
+tree-sitter
+tree-sitter-cli
+tree-sitter-grammars
+
 # Utilities
 git
 ripgrep
