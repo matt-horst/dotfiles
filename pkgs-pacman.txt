@@ -33,6 +33,7 @@ hyprland
 hyprpaper
 hyprlock
 hypridle
+hyprcursor
 waybar
 wl-clipboard
 wofi
