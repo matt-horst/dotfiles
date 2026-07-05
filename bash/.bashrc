@@ -6,7 +6,9 @@
 [[ $- != *i* ]] && return
 
 if [ -d "$HOME/.bashrc.d" ]; then
-    for file in "HOME/.bashrc.d"/*.sh; do
+    echo 'FOUND DIR'
+    for file in "$HOME/.bashrc.d"/*.sh; do
+	echo "FOUND FILE $file"
         if [ -f "$file" ] && [ -r "$file" ]; then
             source "$file"
         fi
