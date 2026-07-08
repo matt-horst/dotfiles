@@ -25,7 +25,7 @@ eza
 fzf
 stow
 unzip
-tldr
+tealdeer
 jq
 
 # Hyprland Desktop Environment and Wayland Necessities
