@@ -1,0 +1,19 @@
+[user]
+    email = mattahorst@gmail.com
+    name = Matt Horst
+[init]
+    defaultBranch = main
+[core]
+    editor = nvim
+    pager = delta
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true
+    dark = true
+    side-by-Side = true
+    lineNumbers = true
+[pull]
+    rebase = true
+[merge]
+    conflictStyle = zdiff3

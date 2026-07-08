@@ -1,5 +1,0 @@
-require('config.plugins.color')
-require('config.plugins.treesitter')
-require('config.plugins.lsp')
-require('config.plugins.telescope')
-require('config.plugins.undotree')

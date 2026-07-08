@@ -1,0 +1,149 @@
+// -*- mode: jsonc -*-
+{
+    "layer": "top", // Waybar at top layer
+    "position": "top", // Waybar position (top|bottom|left|right)
+    "height": 48, // Waybar height (to be removed for auto height)
+    // "width": 1280, // Waybar width
+    // "spacing": 4, // Gaps between modules (4px)
+    // Choose the order of the modules
+    "modules-left": [
+        "custom/archicon",
+        "clock",
+        "cpu",
+        "memory",
+        "disk",
+        "temperature"
+    ],
+    "modules-center": [
+        "hyprland/workspaces"
+    ],
+    "modules-right": [
+        "wlr/taskbar",
+        "idle_inhibitor",
+        "wireplumber",
+        "wireplumber#microphone",
+        "network",
+        "battery",
+        "custom/power"
+    ],
+    // Modules configuration
+    "custom/archicon": {
+        "format": "",
+        "on-click": "wofi --show drun",
+        "tooltip": false
+    },
+    "clock": {
+        "timezone": "America/Denver",
+        "format": "{:%H:%M}",
+        "tooltip-format": "{calendar}",
+        "format-alt": "{:%A %B %d}",
+        "calendar": {
+            "mode": "month"
+        }
+    },
+    "cpu": {
+        "format": "{usage}% ",
+        "tooltip": true,
+        "tooltip-format": "Cores: {cores}"
+    },
+    "memory": {
+        "format": "{percentage}% ",
+        "tooltip": true,
+        "tooltip-format": "{used:0.1f}G / {total:0.1f}G ({percentage}%)"
+    },
+    "disk": {
+        "format": "{percentage_used}% ",
+        "tooltip": true,
+        "tooltip-format": "{used} / {total} ({percentage_used}%)"
+    },
+    "temperature": {
+        "critical-threshold": 80,
+        "format": "{temperatureC}°C {icon}",
+        "format-icons": [ "" ],
+        "tooltip": true,
+        "tooltip-format": "{temperatureC}°C | {temperatureF}°F"
+    },
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "show-special": true,
+        "wrap-on-scroll": false,
+        "format": "{icon}",
+        "format-icons": {
+            "default": "",
+            "active": ""
+        }
+    },
+    "wlr/taskbar": {
+        "format": "{icon}",
+        "all-outputs": true,
+        "active-first": true,
+        "tooltip-format": "{name}",
+        "on-click": "activate",
+        "on-click-middle": "close",
+        "ignore-list": [ "wofi" ]
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    },
+    "wireplumber": {
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-muted": "󰝟",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": [ "󰕿", "󰖀", "󰕾" ]
+        },
+        "node-type": "Audio/Sink",
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "scroll-step": 5
+    },
+    "wireplumber#microphone": {
+        "format": "{volume}% 󰍬",
+        "format-muted": "󰍭",
+        "node-type": "Audio/Source",
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+        "scroll-step": 5
+    },
+    "network": {
+        "format-wifi": "{signalStrength}% ",
+        "format-ethernet": "",
+        "tooltip-format": "{ifname} | {gwaddr}",
+        "tooltip-format-wifi": "{essid} | {ifname} | {gwaddr}",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "⚠",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+    },
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 20
+        },
+        "format": "{capacity}% {icon}",
+        "format-charging": "{capacity}% ",
+        "format-plugged": "{capacity}% ",
+        "format-alt": "{time} {icon}",
+        "format-icons": [ "", "", "", "", "" ]
+    },
+    "custom/power": {
+        "format": "⏻",
+        "tooltip": false,
+        "menu": "on-click",
+        "menu-file": "$HOME/.config/waybar/power_menu.xml",
+        "menu-actions": {
+            "shutdown": "shutdown now",
+            "reboot": "reboot",
+            "suspend": "systemctl suspend",
+            "hibernate": "systemctl hibernate"
+        }
+    }
+}

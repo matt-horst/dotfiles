@@ -1,0 +1,54 @@
+# Terminal and Shell
+ghostty
+zellij
+neovim
+starship
+
+# Treesitter needed for neovim
+tree-sitter
+tree-sitter-cli
+tree-sitter-grammars
+
+# Docs
+man
+man-db
+man-pages
+texinfo
+
+# Utilities
+git
+ripgrep
+fd
+git-delta
+bat
+eza
+fzf
+stow
+unzip
+tldr
+jq
+
+# Hyprland Desktop Environment and Wayland Necessities
+hyprland
+hyprpaper
+hyprlock
+hypridle
+hyprcursor
+hyprshutdown
+hyprpicker
+waybar
+wl-clipboard
+wofi
+
+# Sound
+pipewire-jack
+pipewire-pulse
+pipewire
+pipewire-alsa
+pipewire-pulse
+wireplumber
+
+# Font
+noto-fonts
+noto-fonts-cjk
+ttf-jetbrains-mono-nerd
