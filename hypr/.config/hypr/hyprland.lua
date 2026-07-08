@@ -16,11 +16,25 @@
 
 -- See https://wiki.hypr.land/Configuring/Basics/Monitors/
 hl.monitor({
-    output   = "eDP-1",
-    mode     = "1920x1080@60",
+    output   = "DP-2",
+    mode     = "2560x1440@144",
     position = "0x0",
     scale    = "1",
 })
+
+hl.monitor({
+    output   = "HDMI-A-1",
+    mode     = "2560x1080@60",
+    position = "2560x0",
+    scale    = "1",
+})
+
+-- hl.monitor({
+--     output = "eDP-1",
+--     mode = "1920x1080@60",
+--     position = "0x0",
+--     scale = "1",
+-- })
 
 
 ---------------------
@@ -247,6 +261,11 @@ hl.device({
     sensitivity = -0.5,
 })
 
+hl.config({
+    cursor = {
+        no_hardware_cursors = 1,
+    },
+})
 
 ---------------------
 ---- KEYBINDINGS ----
@@ -268,6 +287,7 @@ hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle only
 hl.bind(mainMod .. " + I", hl.dsp.exec_cmd("hyprlock"))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ action = "toggle" }))
 hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
+hl.bind(mainMod .. " + Y", hl.dsp.exec_cmd("hyprpicker -a"))
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
@@ -353,6 +373,9 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true 
 -- See https://wiki.hypr.land/Configuring/Basics/Window-Rules/
 -- and https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
 
+hl.workspace_rule({ workspace = "1", monitor = "DP-2" })
+hl.workspace_rule({ workspace = "2", monitor = "HDMI-A-1" })
+
 -- Example window rules that are useful
 
 local suppressMaximizeRule = hl.window_rule({
@@ -362,7 +385,7 @@ local suppressMaximizeRule = hl.window_rule({
 
     suppress_event = "maximize",
 })
--- suppressMaximizeRule:set_enabled(false)
+suppressMaximizeRule:set_enabled(false)
 
 hl.window_rule({
     -- Fix some dragging issues with XWayland
