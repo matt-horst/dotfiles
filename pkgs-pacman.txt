@@ -28,17 +28,21 @@ unzip
 tldr
 jq
 
-# Hyprland Desktop Environment
+# Hyprland Desktop Environment and Wayland Necessities
 hyprland
 hyprpaper
 hyprlock
 hypridle
 hyprcursor
+hyprshutdown
+hyprpicker
 waybar
 wl-clipboard
 wofi
 
 # Sound
+pipewire-jack
+pipewire-pulse
 pipewire
 pipewire-alsa
 pipewire-pulse
