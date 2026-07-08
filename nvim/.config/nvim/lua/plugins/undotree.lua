@@ -1,6 +1,6 @@
 return {
-	"jiaoshijie/undotree",
-	keys = {
-		{"<leader>u", "<cmd>lua require('undotree').toggle()<cr>", desc = "Toggles [U]ndotree"},
-	},
+    "jiaoshijie/undotree",
+    keys = {
+        { "<leader>u", "<cmd>lua require('undotree').toggle()<cr>", desc = "Toggles [U]ndotree" },
+    },
 }
