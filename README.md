@@ -171,7 +171,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 snapper -c root create-config /
 snapper -c home create-config /home/
 
-systemctl enable snapper-timeline.time snapper-cleanup.timer
+systemctl enable snapper-timeline.timer snapper-cleanup.timer
 ```
 
 
