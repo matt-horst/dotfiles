@@ -1,0 +1,5 @@
+pipewire
+pipewire-jack
+pipewire-alsa
+pipewire-pulse
+wireplumber

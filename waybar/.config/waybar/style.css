@@ -53,7 +53,8 @@ window#waybar {
 #wireplumber,
 #idle_inhibitor,
 #custom-power,
-#battery {
+#battery,
+#tray {
     color: @foreground;
     background: @background;
     margin-top: 6px;
@@ -126,23 +127,21 @@ window#waybar {
 }
 
 #workspaces button {
-    color: #B5E8E0;
+    color: @inactive;
     background: transparent;
     padding: 4px 4px;
-    transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
+    transition: color 0.3s ease;
 }
 
 #workspaces button.occupied {
-    color: #A6E3A1;
+    color: @inactive;
 }
 
 #workspaces button.active {
-    color: #89B4FA;
-    text-shadow: 0 0 4px #ABE9B3;
+    color: @active;
 }
 
 #workspaces button.hover {
-    color: #89B4FA;
 }
 
 #workspaces button.active:hover {}

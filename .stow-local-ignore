@@ -1,7 +1,0 @@
-^\.git$
-^\.gitignore$
-^README\.md$
-^docs/*$
-^install.sh$
-^pkgs-pacman.txt$
-^pkgs-aur.txt$

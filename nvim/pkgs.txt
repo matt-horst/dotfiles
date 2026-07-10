@@ -1,0 +1,4 @@
+neovim
+tree-sitter
+tree-sitter-cli
+tree-sitter-grammars

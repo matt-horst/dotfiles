@@ -3,38 +3,44 @@
 # Exit immediately if a command exits with a non-zero status
 set -e
 
-echo "Updating system databases..."
-sudo pacman -Sy
-
-echo "Installing Pacman packages..."
-grep -v '^#' pkgs-pacman.txt | xargs sudo pacman -S --needed
-
 aur_helpers=(paru yay)
 for helper in "${aur_helpers[@]}"; do
-    echo $helper
     if command -v $helper >/dev/null 2>&1; then
         aur_helper=$helper
         break
     fi
 done
 
-if [[ -v aur_helper ]]; then
-    echo "Installing AUR packages using ${aur_helper}..."
-    grep -v '^#' pkgs-aur.txt | xargs $aur_helper -S --needed
+if ! [[ -v aur_helper ]]; then
+    echo "Failed to locate AUR helper."
+    echo "Exiting..."
+    exit 1
 else
-    echo "AUR helper not found. Skipping AUR packages..."
+    echo "Found AUR helper: ${aur_helper}"
 fi
 
-if command -v stow >/dev/null 2>&1; then
-    echo "Stowing configuration files..."
-    stow_pkgs=(bash delta eza fzf git hypr nvim ssh starship waybar wofi zellij)
-    for pkg in "${stow_pkgs[@]}"; do
-        echo $pkg
-        stow -v $pkg
-    done
-else
-    echo "Stow command not found. Skipping package configuration..."
+echo "Updating system databases..."
+$aur_helper -Sy
+
+echo "Installing gloabal packages..."
+grep -v '^#' pkgs.txt | xargs $aur_helper -S --needed --noconfirm
+
+if ! command -v stow >/dev/null 2>&1; then
+    echo "Failed to locate stow"
+    echo "Exiting..."
+    exit 1
 fi
+
+pkgs=(1password bash docs dunst eza fzf ghostty git hypr nvim pipewire starship tldr waybar wofi zellij)
+for pkg in "${pkgs[@]}"; do
+    if [ -f "${pkg}/pkgs.txt" ]; then
+        echo "Installing ${pkg} packages..."
+        grep -v '^#' "${pkg}/pkgs.txt" | xargs $aur_helper -S --needed --noconfirm
+    fi
+
+    echo "Stowing ${pkg}..."
+    stow -v --ignore='^pkgs\.txt$' $pkg
+done
 
 echo "Setup complete!"
 

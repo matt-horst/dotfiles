@@ -1,0 +1,12 @@
+hyprland
+hyprpaper
+hyprlock
+hypridle
+hyprcursor
+hyprshutdown
+hyprpicker
+hyprpolkitagent
+wl-clipboard
+qt5-wayland
+qt6-wayland
+xdg-desktop-portal-hyprland

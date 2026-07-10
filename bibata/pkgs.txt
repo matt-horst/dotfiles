@@ -1,3 +1,1 @@
-firefox
-1password
 bibata-cursor-theme-bin

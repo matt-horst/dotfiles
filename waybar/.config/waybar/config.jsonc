@@ -24,6 +24,7 @@
         "wireplumber#microphone",
         "network",
         "battery",
+        "tray",
         "custom/power"
     ],
     // Modules configuration
@@ -70,8 +71,7 @@
         "wrap-on-scroll": false,
         "format": "{icon}",
         "format-icons": {
-            "default": "",
-            "active": ""
+            "default": ""
         }
     },
     "wlr/taskbar": {
@@ -133,6 +133,9 @@
         "format-plugged": "{capacity}% ",
         "format-alt": "{time} {icon}",
         "format-icons": [ "", "", "", "", "" ]
+    },
+    "tray": {
+        "spacing": 4
     },
     "custom/power": {
         "format": "⏻",

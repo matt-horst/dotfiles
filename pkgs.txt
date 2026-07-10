@@ -1,0 +1,19 @@
+# Docs
+man
+man-db
+man-pages
+texinfo
+
+# Utilities
+ripgrep
+fd
+bat
+stow
+unzip
+jq
+
+# Fonts
+noto-fonts
+noto-fonts-cjk
+ttf-jetbrains-mono-nerd
+

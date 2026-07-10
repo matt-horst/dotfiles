@@ -15,37 +15,30 @@
 ------------------
 
 -- See https://wiki.hypr.land/Configuring/Basics/Monitors/
-hl.monitor({
-    output   = "DP-2",
-    mode     = "2560x1440@144",
-    position = "0x0",
-    scale    = "1",
-})
 
-hl.monitor({
-    output   = "HDMI-A-1",
-    mode     = "2560x1080@60",
-    position = "2560x0",
-    scale    = "1",
-})
+local function get_hostname()
+    local handle = io.popen("hostnamectl hostname")
+    if handle == nil then return "" end
+    local hostname = handle:read("*a"):gsub("%s+", "")
+    handle:close()
+    return hostname
+end
 
--- hl.monitor({
---     output = "eDP-1",
---     mode = "1920x1080@60",
---     position = "0x0",
---     scale = "1",
--- })
-
+local hostname = get_hostname()
+if hostname ~= "" then require("config." .. hostname) end
 
 ---------------------
 ---- MY PROGRAMS ----
 ---------------------
 
 -- Set programs that you use
-local terminal    = "ghostty"
-local fileManager = "dolphin"
-local menu        = "wofi --show drun -c ~/.config/wofi/style.css"
-
+local terminal           = require("config.terminal")
+local fileManager        = "dolphin"
+local menu               = require("config.menu")
+local statusBar          = require("config.status_bar")
+local notificationDaemon = require("config.notification_daemon")
+local passwordManager    = require("config.password_manager")
+local cursorTheme        = require("config.cursor_theme")
 
 -------------------
 ---- AUTOSTART ----
@@ -58,8 +51,11 @@ local menu        = "wofi --show drun -c ~/.config/wofi/style.css"
 --
 hl.on("hyprland.start", function()
     hl.exec_cmd("hypridle")
-    hl.exec_cmd("waybar")
     hl.exec_cmd("hyprpaper")
+    hl.exec_cmd("systemctl --user start hyprpolkitagent")
+    hl.exec_cmd(statusBar)
+    hl.exec_cmd(notificationDaemon)
+    hl.exec_cmd(passwordManager)
 end)
 
 
@@ -71,8 +67,8 @@ end)
 
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
-hl.env("XCURSOR_THEME", "Bibata-Modern-Ice")
-hl.env("HYPRCURSOR_THEME", "Bibata-Modern-Ice")
+hl.env("XCURSOR_THEME", cursorTheme)
+hl.env("HYPRCURSOR_THEME", cursorTheme)
 
 -----------------------
 ----- PERMISSIONS -----
@@ -275,8 +271,7 @@ local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
-local closeWindowBind = hl.bind(mainMod .. " + C", hl.dsp.window.close())
--- closeWindowBind:set_enabled(false)
+hl.bind(mainMod .. " + C", hl.dsp.window.close())
 hl.bind(mainMod .. " + M",
     hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
@@ -348,14 +343,8 @@ hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Laptop multimedia keys for volume and LCD brightness
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"),
-    { locked = true, repeating = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
-    { locked = true, repeating = true })
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
-    { locked = true, repeating = true })
-hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
-    { locked = true, repeating = true })
+require("config.sound")
+
 hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"), { locked = true, repeating = true })
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"), { locked = true, repeating = true })
 
@@ -373,8 +362,6 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true 
 -- See https://wiki.hypr.land/Configuring/Basics/Window-Rules/
 -- and https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
 
-hl.workspace_rule({ workspace = "1", monitor = "DP-2" })
-hl.workspace_rule({ workspace = "2", monitor = "HDMI-A-1" })
 
 -- Example window rules that are useful
 
