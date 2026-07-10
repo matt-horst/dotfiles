@@ -1,4 +1,5 @@
 ## Install Arch Linux
+### Preparation
 1. Boot from the Arch ISO install medium
 
 2. Ensure that the system is booted in UEFI mode. The following should run without error:
@@ -8,7 +9,25 @@ ls /sys/firmware/eif/efivars
 
 3. Connect to the internet. This can be accomplished by simply connecting an ethernet (preferred) or using wifi:
 ```
-nmcli device wifi connect <SSID> --ask
+iwctl
+
+# Get List of Devices
+device list
+
+# Scan for Networks
+station <DEV_NAME> scan
+
+# View Available Networks
+station <DEV_NAME> get-networks
+
+# Connect to Network (will propt password if required)
+station <DEV_NAME> connect <SSID>
+
+# Verify
+station <DEV_NAME> show
+
+# Quit
+exit
 ```
 
 4. Use `fdisk` to create the partions as necessary.
@@ -163,6 +182,20 @@ fi
 Create GRUB config
 ```
 grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+### Reboot
+```
+# Exit the new system
+exit
+
+# Disable the swapfile
+swapoff /mnt/swap/swapfile
+
+# Unmount the new system
+umount -R /mnt
+
+reboot
 ```
 
 ## Btrfs Snapshots
