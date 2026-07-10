@@ -37,9 +37,6 @@ mkfs.btrfs -L arch /dev/mapper/cryptroot
 mount /dev/mapper/cryptroot /mnt
 
 btrfs subvolume create /mnt/@
-
-mkdir -p /mnt/{home,boot,swap,var/log,var/cache}
-
 btrfs subvolume create /mnt/@home
 btrfs subvolume create /mnt/@var_cache
 btrfs subvolume create /mnt/@var_log
@@ -51,6 +48,9 @@ umount /mnt
 9. Mount Btrfs Subvolumes and Boot Partition
 ```
 mount -o noatime,compress=zstd,subvol=@ /dev/mapper/cryptroot /mnt
+
+mkdir -p /mnt/{home,boot,swap,var/log,var/cache}
+
 mount -o noatime,compress=zstd,subvol=@home /dev/mapper/cryptroot /mnt/home
 mount -o noatime,compress=zstd,subvol=@var_cache /dev/mapper/cryptroot /mnt/var/cache
 mount -o noatime,compress=zstd,subvol=@var_log /dev/mapper/cryptroot /mnt/var/log
