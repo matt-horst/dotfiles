@@ -37,6 +37,9 @@ mkfs.btrfs -L arch /dev/mapper/cryptroot
 mount /dev/mapper/cryptroot /mnt
 
 btrfs subvolume create /mnt/@
+
+mkdir -p /mnt/{home,boot,swap,var/log,var/cache}
+
 btrfs subvolume create /mnt/@home
 btrfs subvolume create /mnt/@var_cache
 btrfs subvolume create /mnt/@var_log
