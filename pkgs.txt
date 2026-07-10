@@ -16,6 +16,3 @@ jq
 noto-fonts
 noto-fonts-cjk
 ttf-jetbrains-mono-nerd
-
-# Internet
-firefox

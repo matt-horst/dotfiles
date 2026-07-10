@@ -31,7 +31,7 @@ if ! command -v stow >/dev/null 2>&1; then
     exit 1
 fi
 
-pkgs=(1password bash docs dunst eza fzf ghostty git hypr nvim pipewire starship tldr waybar wofi zellij)
+pkgs=(bash eza fzf bibata git starship tldr ghostty zellij dunst pipewire waybar wofi hypr nvim 1password)
 for pkg in "${pkgs[@]}"; do
     if [ -f "${pkg}/pkgs.txt" ]; then
         echo "Installing ${pkg} packages..."
