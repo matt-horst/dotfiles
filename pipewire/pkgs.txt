@@ -1,4 +1,5 @@
 pipewire
+lib32-pipewire
 pipewire-jack
 pipewire-alsa
 pipewire-pulse

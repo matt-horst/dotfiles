@@ -40,6 +40,7 @@ local notificationDaemon = require("config.notification_daemon")
 local passwordManager    = require("config.password_manager")
 local cursorTheme        = require("config.cursor_theme")
 local network            = require("config.network")
+local video              = require("config.video")
 
 -------------------
 ---- AUTOSTART ----
@@ -70,6 +71,10 @@ hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 hl.env("XCURSOR_THEME", cursorTheme)
 hl.env("HYPRCURSOR_THEME", cursorTheme)
+
+for k, v in pairs(video.env) do
+    hl.env(k, v)
+end
 
 -----------------------
 ----- PERMISSIONS -----
