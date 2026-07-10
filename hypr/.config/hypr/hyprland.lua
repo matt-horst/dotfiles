@@ -39,6 +39,7 @@ local statusBar          = require("config.status_bar")
 local notificationDaemon = require("config.notification_daemon")
 local passwordManager    = require("config.password_manager")
 local cursorTheme        = require("config.cursor_theme")
+local network            = require("config.network")
 
 -------------------
 ---- AUTOSTART ----
@@ -283,6 +284,7 @@ hl.bind(mainMod .. " + I", hl.dsp.exec_cmd("hyprlock"))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ action = "toggle" }))
 hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
 hl.bind(mainMod .. " + Y", hl.dsp.exec_cmd("hyprpicker -a"))
+hl.bind(mainMod .. " + N", hl.dsp.exec_cmd(network))
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
