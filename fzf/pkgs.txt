@@ -1,1 +1,4 @@
 fzf
+bat
+eza
+fd
