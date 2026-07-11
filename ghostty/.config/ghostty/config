@@ -1,0 +1,7 @@
+# Adjust the opacity (0.0 is completely clear, 1.0 is solid)
+background-opacity = 0.90
+
+# Enable background blur (value dictates the intensity, e.g., 20 or 90)
+background-blur = 40
+
+theme=theme

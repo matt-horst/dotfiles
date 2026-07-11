@@ -31,7 +31,7 @@ if ! command -v stow >/dev/null 2>&1; then
     exit 1
 fi
 
-pkgs=(bash eza fzf bibata git starship tldr ghostty zellij dunst pipewire waybar wofi networkmanager-dmenu hypr nvim 1password nvidia-open $HOSTNAME)
+pkgs=(bash eza fzf bibata git starship tldr ghostty zellij dunst pipewire waybar wofi networkmanager-dmenu hypr nvim 1password nvidia-open cyberdream $HOSTNAME)
 for pkg in "${pkgs[@]}"; do
     if [ -f "${pkg}/pkgs.txt" ]; then
         echo "Installing ${pkg} packages..."

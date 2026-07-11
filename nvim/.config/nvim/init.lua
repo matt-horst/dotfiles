@@ -303,14 +303,6 @@ do
 end
 
 -- ============================================================
--- SECTION 4: UI / CORE UX PLUGINS
--- guess-indent, gitsigns, which-key, colorscheme, todo-comments, mini modules
--- ============================================================
-do
-  vim.cmd.colorscheme 'dracula'
-end
-
--- ============================================================
 -- SECTION 5: SEARCH & NAVIGATION
 -- Telescope setup, keymaps, LSP picker mappings
 -- ============================================================
