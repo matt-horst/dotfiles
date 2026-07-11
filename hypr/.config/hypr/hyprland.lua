@@ -15,32 +15,42 @@
 ------------------
 
 -- See https://wiki.hypr.land/Configuring/Basics/Monitors/
+hl.config({
+    debug = {
+        disable_logs = false,
+    },
+    misc = {
+        disable_autoreload = false,
+    },
+})
 
-local function get_hostname()
-    local handle = io.popen("hostnamectl hostname")
-    if handle == nil then return "" end
-    local hostname = handle:read("*a"):gsub("%s+", "")
-    handle:close()
-    return hostname
+MOD = "SUPER"
+
+local function require_config_files()
+    local prefix = "config"
+    local handle = io.popen("ls " .. os.getenv("HOME") .. "/.config/hypr/" .. prefix)
+
+    if handle then
+        for filename in handle:lines() do
+            local file = prefix .. "." .. filename:gsub(".lua", "")
+            require(file)
+        end
+
+        handle:close()
+    end
+
+    return {}
 end
 
-local hostname = get_hostname()
-if hostname ~= "" then require("config." .. hostname) end
+require_config_files()
 
 ---------------------
 ---- MY PROGRAMS ----
 ---------------------
 
 -- Set programs that you use
-local terminal           = require("config.terminal")
-local fileManager        = "dolphin"
-local menu               = require("config.menu")
-local statusBar          = require("config.status_bar")
-local notificationDaemon = require("config.notification_daemon")
-local passwordManager    = require("config.password_manager")
-local cursorTheme        = require("config.cursor_theme")
-local network            = require("config.network")
-local video              = require("config.video")
+-- local terminal           = require("config.terminal")
+local fileManager = "dolphin"
 
 -------------------
 ---- AUTOSTART ----
@@ -55,26 +65,8 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("hypridle")
     hl.exec_cmd("hyprpaper")
     hl.exec_cmd("systemctl --user start hyprpolkitagent")
-    hl.exec_cmd(statusBar)
-    hl.exec_cmd(notificationDaemon)
-    hl.exec_cmd(passwordManager)
 end)
 
-
--------------------------------
----- ENVIRONMENT VARIABLES ----
--------------------------------
-
--- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Environment-variables/
-
-hl.env("XCURSOR_SIZE", "24")
-hl.env("HYPRCURSOR_SIZE", "24")
-hl.env("XCURSOR_THEME", cursorTheme)
-hl.env("HYPRCURSOR_THEME", cursorTheme)
-
-for k, v in pairs(video.env) do
-    hl.env(k, v)
-end
 
 -----------------------
 ----- PERMISSIONS -----
@@ -273,84 +265,76 @@ hl.config({
 ---- KEYBINDINGS ----
 ---------------------
 
-local mainMod = "SUPER" -- Sets "Windows" key as main modifier
-
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
-hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
-hl.bind(mainMod .. " + C", hl.dsp.window.close())
-hl.bind(mainMod .. " + M",
+hl.bind(MOD .. " + C", hl.dsp.window.close())
+hl.bind(MOD .. " + M",
     hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
-hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
-hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
-hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
-hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle only
-hl.bind(mainMod .. " + I", hl.dsp.exec_cmd("hyprlock"))
-hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ action = "toggle" }))
-hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
-hl.bind(mainMod .. " + Y", hl.dsp.exec_cmd("hyprpicker -a"))
-hl.bind(mainMod .. " + N", hl.dsp.exec_cmd(network))
+hl.bind(MOD .. " + E", hl.dsp.exec_cmd(fileManager))
+hl.bind(MOD .. " + V", hl.dsp.window.float({ action = "toggle" }))
+hl.bind(MOD .. " + P", hl.dsp.window.pseudo())
+hl.bind(MOD .. " + S", hl.dsp.layout("togglesplit")) -- dwindle only
+hl.bind(MOD .. " + I", hl.dsp.exec_cmd("hyprlock"))
+hl.bind(MOD .. " + F", hl.dsp.window.fullscreen({ action = "toggle" }))
+hl.bind(MOD .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
+hl.bind(MOD .. " + Y", hl.dsp.exec_cmd("hyprpicker -a"))
 
--- Move focus with mainMod + arrow keys
-hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
-hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
-hl.bind(mainMod .. " + up", hl.dsp.focus({ direction = "up" }))
-hl.bind(mainMod .. " + down", hl.dsp.focus({ direction = "down" }))
+-- Move focus with MOD + arrow keys
+hl.bind(MOD .. " + left", hl.dsp.focus({ direction = "left" }))
+hl.bind(MOD .. " + right", hl.dsp.focus({ direction = "right" }))
+hl.bind(MOD .. " + up", hl.dsp.focus({ direction = "up" }))
+hl.bind(MOD .. " + down", hl.dsp.focus({ direction = "down" }))
 
--- Move focus with mainMod + hjkl keys
-hl.bind(mainMod .. " + H", hl.dsp.focus({ direction = "left" }))
-hl.bind(mainMod .. " + L", hl.dsp.focus({ direction = "right" }))
-hl.bind(mainMod .. " + K", hl.dsp.focus({ direction = "up" }))
-hl.bind(mainMod .. " + J", hl.dsp.focus({ direction = "down" }))
+-- Move focus with MOD + hjkl keys
+hl.bind(MOD .. " + H", hl.dsp.focus({ direction = "left" }))
+hl.bind(MOD .. " + L", hl.dsp.focus({ direction = "right" }))
+hl.bind(MOD .. " + K", hl.dsp.focus({ direction = "up" }))
+hl.bind(MOD .. " + J", hl.dsp.focus({ direction = "down" }))
 
--- Move windows with mainMod + arrow keys
-hl.bind(mainMod .. " + SHIFT + left", hl.dsp.window.move({ direction = "left" }))
-hl.bind(mainMod .. " + SHIFT + right", hl.dsp.window.move({ direction = "right" }))
-hl.bind(mainMod .. " + SHIFT + up", hl.dsp.window.move({ direction = "up" }))
-hl.bind(mainMod .. " + SHIFT + down", hl.dsp.window.move({ direction = "down" }))
+-- Move windows with MOD + arrow keys
+hl.bind(MOD .. " + SHIFT + left", hl.dsp.window.move({ direction = "left" }))
+hl.bind(MOD .. " + SHIFT + right", hl.dsp.window.move({ direction = "right" }))
+hl.bind(MOD .. " + SHIFT + up", hl.dsp.window.move({ direction = "up" }))
+hl.bind(MOD .. " + SHIFT + down", hl.dsp.window.move({ direction = "down" }))
 
--- Move windows with mainMod + hjkl keys
-hl.bind(mainMod .. " + SHIFT + H", hl.dsp.window.move({ direction = "left" }))
-hl.bind(mainMod .. " + SHIFT + L", hl.dsp.window.move({ direction = "right" }))
-hl.bind(mainMod .. " + SHIFT + K", hl.dsp.window.move({ direction = "up" }))
-hl.bind(mainMod .. " + SHIFT + J", hl.dsp.window.move({ direction = "down" }))
+-- Move windows with MOD + hjkl keys
+hl.bind(MOD .. " + SHIFT + H", hl.dsp.window.move({ direction = "left" }))
+hl.bind(MOD .. " + SHIFT + L", hl.dsp.window.move({ direction = "right" }))
+hl.bind(MOD .. " + SHIFT + K", hl.dsp.window.move({ direction = "up" }))
+hl.bind(MOD .. " + SHIFT + J", hl.dsp.window.move({ direction = "down" }))
 
 local resizeDelta = 100
 
--- Resize active window with mainMod + alt + hjkl keys
-hl.bind(mainMod .. " + ALT + H", hl.dsp.window.resize({ x = -resizeDelta, y = 0, relative = true }))
-hl.bind(mainMod .. " + ALT + L", hl.dsp.window.resize({ x = resizeDelta, y = 0, relative = true }))
-hl.bind(mainMod .. " + ALT + K", hl.dsp.window.resize({ x = 0, y = -resizeDelta, relative = true }))
-hl.bind(mainMod .. " + ALT + J", hl.dsp.window.resize({ x = 0, y = resizeDelta, relative = true }))
+-- Resize active window with MOD + alt + hjkl keys
+hl.bind(MOD .. " + ALT + H", hl.dsp.window.resize({ x = -resizeDelta, y = 0, relative = true }))
+hl.bind(MOD .. " + ALT + L", hl.dsp.window.resize({ x = resizeDelta, y = 0, relative = true }))
+hl.bind(MOD .. " + ALT + K", hl.dsp.window.resize({ x = 0, y = -resizeDelta, relative = true }))
+hl.bind(MOD .. " + ALT + J", hl.dsp.window.resize({ x = 0, y = resizeDelta, relative = true }))
 
--- # Resize active window with mainMod + alt + arrow keys
-hl.bind(mainMod .. " + ALT + left", hl.dsp.window.resize({ x = -resizeDelta, y = 0, relative = true }))
-hl.bind(mainMod .. " + ALT + right", hl.dsp.window.resize({ x = resizeDelta, y = 0, relative = true }))
-hl.bind(mainMod .. " + ALT + up", hl.dsp.window.resize({ x = 0, y = -resizeDelta, relative = true }))
-hl.bind(mainMod .. " + ALT + down", hl.dsp.window.resize({ x = 0, y = resizeDelta, relative = true }))
+-- # Resize active window with MOD + alt + arrow keys
+hl.bind(MOD .. " + ALT + left", hl.dsp.window.resize({ x = -resizeDelta, y = 0, relative = true }))
+hl.bind(MOD .. " + ALT + right", hl.dsp.window.resize({ x = resizeDelta, y = 0, relative = true }))
+hl.bind(MOD .. " + ALT + up", hl.dsp.window.resize({ x = 0, y = -resizeDelta, relative = true }))
+hl.bind(MOD .. " + ALT + down", hl.dsp.window.resize({ x = 0, y = resizeDelta, relative = true }))
 
--- Switch workspaces with mainMod + [0-9]
--- Move active window to a workspace with mainMod + SHIFT + [0-9]
+-- Switch workspaces with MOD + [0-9]
+-- Move active window to a workspace with MOD + SHIFT + [0-9]
 for i = 1, 10 do
     local key = i % 10 -- 10 maps to key 0
-    hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
-    hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+    hl.bind(MOD .. " + " .. key, hl.dsp.focus({ workspace = i }))
+    hl.bind(MOD .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
 end
 
 -- Example special workspace (scratchpad)
-hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("magic"))
-hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
+hl.bind(MOD .. " + S", hl.dsp.workspace.toggle_special("magic"))
+hl.bind(MOD .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
 
--- Scroll through existing workspaces with mainMod + scroll
-hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
-hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
+-- Scroll through existing workspaces with MOD + scroll
+hl.bind(MOD .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
+hl.bind(MOD .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 
--- Move/resize windows with mainMod + LMB/RMB and dragging
-hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
-hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
-
--- Laptop multimedia keys for volume and LCD brightness
-require("config.sound")
+-- Move/resize windows with MOD + LMB/RMB and dragging
+hl.bind(MOD .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
+hl.bind(MOD .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"), { locked = true, repeating = true })
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"), { locked = true, repeating = true })

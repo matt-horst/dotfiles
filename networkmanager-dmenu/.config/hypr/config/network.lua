@@ -1,1 +1,0 @@
-return "networkmanager_dmenu"
