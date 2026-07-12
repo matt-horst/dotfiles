@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 
-# Exit immediately if a command exits with a non-zero status
+# Exit immediately if non-zero exit code
 set -e
+
+read_pkgs() {
+    # Strips comments from package lists
+    cat "${1}" | sed 's/#.*$//'
+}
 
 aur_helpers=(paru yay)
 for helper in "${aur_helpers[@]}"; do
@@ -23,7 +28,7 @@ echo "Updating system databases..."
 $aur_helper -Sy
 
 echo "Installing gloabal packages..."
-grep -v '^#' pkgs.txt | xargs $aur_helper -S --needed --noconfirm
+$aur_helper -S stow --needed --noconfirm
 
 if ! command -v stow >/dev/null 2>&1; then
     echo "Failed to locate stow"
@@ -31,16 +36,44 @@ if ! command -v stow >/dev/null 2>&1; then
     exit 1
 fi
 
-pkgs=(bash eza fzf bibata git starship tldr ghostty zellij dunst pipewire waybar wofi networkmanager-dmenu hypr nvim 1password nvidia-open cyberdream $HOSTNAME)
-for pkg in "${pkgs[@]}"; do
-    if [ -f "${pkg}/pkgs.txt" ]; then
-        echo "Installing ${pkg} packages..."
-        grep -v '^#' "${pkg}/pkgs.txt" | xargs $aur_helper -S --needed --noconfirm
+modules=($HOSTNAME)
+
+if (( $# > 0 )); then
+    modules+=("${@}")
+else
+    modules+=(
+        bash
+        eza
+        fzf
+        bibata
+        git
+        starship
+        tldr
+        ghostty
+        zellij
+        dunst
+        pipewire
+        waybar
+        wofi
+        networkmanager-dmenu
+        hypr
+        nvim
+        1password
+        nvidia-open
+        cyberdream
+    )
+fi
+
+pkgs=($(read_pkgs "pkgs.txt"))
+for mod in "${modules[@]}"; do
+    echo "Processing ${mod}..."
+
+    if [ -f "${mod}/pkgs.txt" ]; then
+        pkgs+=($(read_pkgs "${mod}/pkgs.txt"))
     fi
 
-    echo "Stowing ${pkg}..."
-    stow -v --ignore='^pkgs\.txt$' $pkg
+    stow -v --ignore='^pkgs\.txt$' $mod
 done
 
-echo "Setup complete!"
-
+echo "Installing packages..."
+grep -v '^#' "${pkg}/pkgs.txt" | xargs $aur_helper -S --needed --noconfirm
