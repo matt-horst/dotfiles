@@ -65,9 +65,9 @@
         "tooltip-format": "{temperatureC}°C | {temperatureF}°F"
     },
     "hyprland/workspaces": {
-        "disable-scroll": true,
+        "disable-scroll": false,
         "all-outputs": true,
-        "show-special": true,
+        "show-special": false,
         "wrap-on-scroll": false,
         "format": "{icon}",
         "format-icons": {

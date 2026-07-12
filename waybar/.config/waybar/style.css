@@ -80,15 +80,14 @@ window#waybar {
 #workspaces {
     background: @background;
     border-radius: 10px;
-    margin: 5px 5px;
-    padding: 0px 5px;
+    margin: 5px 5px 5px 5px;
+    padding: 0px 5px 0px 2px;
 }
 
 #workspaces button {
     color: @inactive;
     background: transparent;
-    margin: 0px 5px;
-    padding: 0px 3px;
+    padding: 0px 5px;
     transition: color 0.5s ease;
 }
 
@@ -100,6 +99,7 @@ window#waybar {
     background: @background;
     border-radius: 10px;
     padding: 0px 5px;
+    margin-right: 5px;
 }
 
 #taskbar button {
@@ -172,6 +172,7 @@ window#waybar {
 
 #tray {
     border-radius: 10px;
+    margin: 5px;
 }
 
 @keyframes blink {
