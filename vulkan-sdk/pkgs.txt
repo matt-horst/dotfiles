@@ -1,0 +1,3 @@
+libxcb
+libxinerama
+xcb-util-cursor
