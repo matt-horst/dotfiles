@@ -1,0 +1,52 @@
+[bar]
+bg = "bg-base"
+background-opacity = 90
+button-variant = "basic"
+button-rounding = "full"
+
+[[bar.layout]]
+monitor = "*"
+show = true
+left = [
+    "clock",
+    "weather",
+    "media",
+    "notifications",
+]
+center = ["hyprland-workspaces"]
+right = [
+    "idle-inhibit",
+    "network",
+    "microphone",
+    "volume",
+    "systray",
+]
+
+[styling.palette]
+bg = "#16161e"
+surface = "#1a1b26"
+elevated = "#292e42"
+fg = "#c0caf5"
+fg-muted = "#a9b1d6"
+primary = "#7aa2f7"
+red = "#f7768e"
+yellow = "#e0af68"
+green = "#9ece6a"
+blue = "#7dcfff"
+
+[modules.hyprland-workspaces]
+app-icons-show = true
+
+[modules.separator]
+color = "auto"
+
+[modules.weather]
+location = "Albuquerque"
+units = "imperial"
+
+[wallpaper]
+cycling-enabled = true
+cycling-directory = "/home/matt/wallpapers/"
+cycling-mode = "shuffle"
+cycling-interval-mins = 20
+cycling-same-image = true

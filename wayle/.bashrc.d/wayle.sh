@@ -1,0 +1,1 @@
+eval "$(wayle completions bash)"
