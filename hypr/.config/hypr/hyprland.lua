@@ -63,7 +63,6 @@ local fileManager = "dolphin"
 --
 hl.on("hyprland.start", function()
     hl.exec_cmd("hypridle")
-    hl.exec_cmd("hyprpaper")
     hl.exec_cmd("systemctl --user start hyprpolkitagent")
 end)
 
@@ -321,7 +320,7 @@ hl.bind(MOD .. " + ALT + down", hl.dsp.window.resize({ x = 0, y = resizeDelta, r
 for i = 1, 10 do
     local key = i % 10 -- 10 maps to key 0
     hl.bind(MOD .. " + " .. key, hl.dsp.focus({ workspace = i }))
-    hl.bind(MOD .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+    hl.bind(MOD .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i, follow = false }))
 end
 
 -- Example special workspace (scratchpad)
