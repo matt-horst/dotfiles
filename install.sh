@@ -76,4 +76,4 @@ for mod in "${modules[@]}"; do
 done
 
 echo "Installing packages..."
-grep -v '^#' "${pkg}/pkgs.txt" | xargs $aur_helper -S --needed --noconfirm
+$aur_helper "${pkgs[@]}" -S --needed --noconfirm
