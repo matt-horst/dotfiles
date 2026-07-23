@@ -8,5 +8,5 @@ hl.monitor({
 hl.workspace_rule({
     workspace = "1",
     default = true,
-    persistant = true,
+    persistent = true,
 })
