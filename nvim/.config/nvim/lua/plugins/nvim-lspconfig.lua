@@ -14,6 +14,12 @@ return {
                     checkThirdParty = false,
                 },
             },
+            clangd = {
+            },
+            neocmake = {
+                filetypes = { "cmake" },
+                single_file_support = true,
+            },
         }
     },
 
@@ -24,5 +30,14 @@ return {
             vim.lsp.config(server, config)
             vim.lsp.enable(server)
         end
+
+        vim.filetype.add({
+            extension = {
+                cmakein = "cmake",
+            },
+            filename = {
+                ["CMakeLists.txt"] = "cmake",
+            },
+        })
     end,
 }
