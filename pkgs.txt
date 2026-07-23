@@ -16,3 +16,4 @@ jq
 noto-fonts
 noto-fonts-cjk
 ttf-jetbrains-mono-nerd
+papirus-icon-theme

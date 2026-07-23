@@ -53,7 +53,7 @@ else
         zellij
         dunst
         pipewire
-        waybar
+        wayle
         wofi
         networkmanager-dmenu
         hypr
