@@ -27,9 +27,6 @@ fi
 echo "Updating system databases..."
 $aur_helper -Sy
 
-echo "Installing gloabal packages..."
-$aur_helper -S stow --needed --noconfirm
-
 if ! command -v stow >/dev/null 2>&1; then
     echo "Failed to locate stow"
     echo "Exiting..."
@@ -77,4 +74,4 @@ for mod in "${modules[@]}"; do
 done
 
 echo "Uninstalling packages..."
-grep -v '^#' "${pkg}/pkgs.txt" | xargs $aur_helper -Rns --noconfirm
+$aur_helper -Rns --noconfirm "${pkgs[@]}"
