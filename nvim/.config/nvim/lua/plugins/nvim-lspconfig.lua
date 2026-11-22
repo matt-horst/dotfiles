@@ -20,6 +20,9 @@ return {
                 filetypes = { "cmake" },
                 single_file_support = true,
             },
+            ols = {
+                cmd = { "ols" },
+            },
         }
     },
 
